@@ -2,8 +2,10 @@
 
 namespace Infrastructure.cs.Services;
 
-public class JsonFileService : IFileService
+public class JsonFileService(string, filePath) : IFileService
 {
+    private readonly string _filePath = filePath;
+
     public string GetJsonContentFromFile()
     {
         throw new NotImplementedException();
