@@ -2,7 +2,7 @@
 
 public class Product
 {
-    public string Id { get; set; } = null!;
+    public string Id { get; set; } = Guid.NewGuid().ToString();
     public string? ArticleNumber { get; set; }
     public bool IsService { get; set; }
     public string ProductName { get; set; } = null!;
@@ -11,7 +11,7 @@ public class Product
 
 public class Unit
 {
-    public int Id { get; set; }
+    public string Id { get; set; } = null!;
     public string UnitName { get; set; } = null!;
 }
 
@@ -46,4 +46,18 @@ public class ProductViewListRequest
     public string? Description { get; set; }
     public string Unit { get; set; } = null!;
     public decimal UnitPrice { get; set; }
+}
+
+public class ProductCategory
+{
+    public string? Id { get; set; } 
+    public string? ArticleNumber { get; set; }
+    public string? ProductName { get; set; } 
+
+}
+
+public class ProductManufacturer
+{
+    public string? Id { get; set; }
+    public string? ProductName { get; set; }
 }

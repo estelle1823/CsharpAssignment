@@ -11,7 +11,7 @@ public interface IProductService
     Product GetProductsbyId(string id);
     Product GetProductByArticleNumber(string articleNumber);
     Product GetProductByProductName(string productName);
-
+     
     bool UpdateProduct(string id, ProductUpdateRequest product);
 
     bool DeleteProduct(string id);
