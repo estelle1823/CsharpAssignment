@@ -2,14 +2,27 @@
 using System.Text.Json;
 namespace Infrastructure.cs.Services;
 
-public class JsonFileService(string filePath, JsonSerializerOptions? options = null) : IFileService
+public class JsonFileService : IFileService
 {
-    private readonly string _filePath = filePath;
-    private readonly JsonSerializerOptions _options = options ?? new(JsonSerializerDefaults.Web)
-    {
-        WriteIndented = true,
-    };
+    private readonly string _filePath;
 
+    public JsonFileService(string filePath = @"c:\data\products.json")
+    {
+        _filePath = filePath;
+    }
+
+    public bool SaveJsonContentToFile(string jsonContent)
+    {
+        try
+        {
+            File.WriteAllText(_filePath, jsonContent);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 
     public string GetJsonContentFromFile()
     {
@@ -17,22 +30,5 @@ public class JsonFileService(string filePath, JsonSerializerOptions? options = n
             return string.Empty;
 
         return File.ReadAllText(_filePath);
-    }
-
-    public bool SaveJsonContentToFile(string jsonContent)
-    {
-        try
-        {
-            var directory = Path.GetDirectoryName(_filePath);
-            if (!string.IsNullOrEmpty(directory))
-                Directory.CreateDirectory(directory);
-
-            File.WriteAllText(_filePath, content);
-            return true;
-        }
-        catch
-        {
-            return false;
-        }
     }
 }

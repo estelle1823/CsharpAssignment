@@ -10,20 +10,8 @@ public class ProductService(IFileService fileService) : IProductService
 
     public bool AddToProductList(ProductCreateRequest product)
     {
-        if (newProduct == null)
-            return false;
-
-        if (string.IsNullOrWhiteSpace(newProduct.Name))
-            return false;
-
-        Product product = new()
-        {
-            Id = Guid.NewGuid().ToString(),
-            ArticleNumber = newProduct.ArticleNumber,
-            Name = newProduct.Name,
-            Description = newProduct.Description
-        };
-
+        product.Id = Guid.NewGuid().ToString();
+        product.ProductName = product.ProductName.Trim();
         _productList.Add(product);
         return true;
     }
@@ -63,26 +51,26 @@ public class ProductService(IFileService fileService) : IProductService
 
     public Product GetProductByProductName(string productName)
     {
-        var product = _productList.FirstOrDefault(x => x.Name == name);
+        var product = _productList.FirstOrDefault(x => x.ProductName == productName);
         return product;
     }
 
     public Product GetProductsbyId(string id)
     {
-        var product = _productList.FirstOrDefault(x => x.Id == id);
+        var product = _productList.FirstOrDefault(x => product.Id == id);
         return product;
     }
 
     public bool UpdateProduct(string id, ProductUpdateRequest product)
     {
-        var existing_prodyct = GetProductById(user.Id);
+        var existing_prodyct = GetProductById(product.Id);
 
         if (existing_product is not null)
         {
-            existing_product.FirstName = user.FirstName;
-            existing_product.LastName = user.LastName;
+            existing_product.FirstName = product.FirstName;
+            existing_product.LastName = product.LastName;
 
-            if (existing_product.Email != user.Email)
+            if (existing_product.Email != product.Email)
             {
                 var existing_email = _productList.Any( => product.Email == product.Email);
                 if (existing_product)
